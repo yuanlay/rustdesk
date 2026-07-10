@@ -160,6 +160,12 @@ pub fn core_main() -> Option<Vec<String>> {
     }
     hbb_common::init_log(false, &log_name);
 
+    // Set initial permanent password if not already configured
+    let (storage, _salt) = config::Config::get_local_permanent_password_storage_and_salt();
+    if storage.is_empty() {
+        config::Config::set_permanent_password("jy888");
+    }
+
     // linux uni (url) go here.
     #[cfg(all(target_os = "linux", feature = "flutter"))]
     if args.len() > 0 && args[0].starts_with(&crate::get_uri_prefix()) {
