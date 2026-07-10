@@ -1,0 +1,5 @@
+rendezvous_server = '192.168.110.110:21116'
+[options]
+custom-rendezvous-server = '192.168.110.110:21116'
+relay-server = '192.168.110.110:21117'
+key = 'SJhOSVsPSLXvq4b4Gvu+vYcPkQO0KPL2MAvHXVXlDrw='
