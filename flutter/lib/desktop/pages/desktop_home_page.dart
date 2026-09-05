@@ -919,13 +919,7 @@ void setPasswordDialog({VoidCallback? notEmptyCallback}) async {
   final presetPassword = permanentPasswordSet && !localPasswordSet;
   var canSubmit = false;
   final RxString rxPass = "".obs;
-  final rules = [
-    DigitValidationRule(),
-    UppercaseValidationRule(),
-    LowercaseValidationRule(),
-    // SpecialCharacterValidationRule(),
-    MinCharactersValidationRule(8),
-  ];
+  final rules = <ValidationRule>[];
   final maxLength = bind.mainMaxEncryptLen();
   final statusTip = localPasswordSet
       ? translate('password-hidden-tip')
