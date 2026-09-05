@@ -3995,7 +3995,7 @@ get defaultOptionTheme => isCustomClient ? 'system' : '';
 get defaultOptionYes => isCustomClient ? 'Y' : '';
 get defaultOptionNo => isCustomClient ? 'N' : '';
 get defaultOptionWhitelist => isCustomClient ? ',' : '';
-get defaultOptionAccessMode => isCustomClient ? 'custom' : '';
+get defaultOptionAccessMode =>'custom';
 get defaultOptionApproveMode => isCustomClient ? 'password-click' : '';
 
 bool whitelistNotEmpty() {
