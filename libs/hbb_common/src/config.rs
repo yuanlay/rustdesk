@@ -1224,6 +1224,8 @@ impl Config {
         let mut res = DEFAULT_SETTINGS.read().unwrap().clone();
         res.extend(CONFIG2.read().unwrap().options.clone());
         res.extend(OVERWRITE_SETTINGS.read().unwrap().clone());
+        res.entry(keys::OPTION_ACCESS_MODE.to_owned())
+        .or_insert_with(|| "full".to_owned());
         res
     }
 
@@ -1249,7 +1251,13 @@ impl Config {
             &DEFAULT_SETTINGS,
             k,
         )
-        .unwrap_or_default()
+        .unwrap_or_else(|| {
+            if k == keys::OPTION_ACCESS_MODE {
+                "full".to_owned()
+            } else {
+                String::new()
+            }
+        })
     }
 
     pub fn get_bool_option(k: &str) -> bool {
