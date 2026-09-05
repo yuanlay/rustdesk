@@ -349,6 +349,16 @@ pub fn get_options() -> String {
     for (k, v) in options.iter() {
         m.insert(k.into(), v.to_owned().into());
     }
+    m.entry(OPTION_CUSTOM_RENDEZVOUS_SERVER.to_owned())
+        .or_insert_with(|| {
+            config::RENDEZVOUS_SERVERS
+                .first()
+                .copied()
+                .unwrap_or_default()
+                .into()
+        });
+    m.entry(OPTION_KEY.to_owned())
+        .or_insert_with(|| config::RS_PUB_KEY.into());
     serde_json::to_string(&m).unwrap_or_default()
 }
 
