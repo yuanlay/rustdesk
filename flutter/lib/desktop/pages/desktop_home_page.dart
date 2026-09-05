@@ -919,7 +919,6 @@ void setPasswordDialog({VoidCallback? notEmptyCallback}) async {
   final presetPassword = permanentPasswordSet && !localPasswordSet;
   var canSubmit = false;
   final RxString rxPass = "".obs;
-  final rules = <ValidationRule>[];
   final maxLength = bind.mainMaxEncryptLen();
   final statusTip = localPasswordSet
       ? translate('password-hidden-tip')
@@ -941,16 +940,6 @@ void setPasswordDialog({VoidCallback? notEmptyCallback}) async {
         errMsg1 = "";
       });
       final pass = p0.text.trim();
-      if (pass.isNotEmpty) {
-        final Iterable violations = rules.where((r) => !r.validate(pass));
-        if (violations.isNotEmpty) {
-          setState(() {
-            errMsg0 =
-                '${translate('Prompt')}: ${violations.map((r) => r.name).join(', ')}';
-          });
-          return;
-        }
-      }
       if (p1.text.trim() != pass) {
         setState(() {
           errMsg1 =
@@ -1049,27 +1038,6 @@ void setPasswordDialog({VoidCallback? notEmptyCallback}) async {
                   ))
                 ],
               ).marginOnly(top: 6, bottom: 2),
-            SizedBox(
-              height: showStatusTipOnMobile ? 0.0 : 8.0,
-            ),
-            Obx(() => Wrap(
-                  runSpacing: showStatusTipOnMobile ? 2.0 : 8.0,
-                  spacing: 4,
-                  children: rules.map((e) {
-                    var checked = e.validate(rxPass.value.trim());
-                    return Chip(
-                        label: Text(
-                          e.name,
-                          style: TextStyle(
-                              color: checked
-                                  ? const Color(0xFF0A9471)
-                                  : Color.fromARGB(255, 198, 86, 157)),
-                        ),
-                        backgroundColor: checked
-                            ? const Color(0xFFD0F7ED)
-                            : Color.fromARGB(255, 247, 205, 232));
-                  }).toList(),
-                ))
           ],
         ),
       ),
